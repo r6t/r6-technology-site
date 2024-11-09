@@ -1,0 +1,6 @@
+[submodule "themes/hacker"]
+	path = themes/hacker
+	url = https://github.com/en9inerd/zola-hacker.git
+[submodule "amazon-cloudfront-secure-static-site"]
+	path = amazon-cloudfront-secure-static-site
+	url = https://github.com/aws-samples/amazon-cloudfront-secure-static-site.git
