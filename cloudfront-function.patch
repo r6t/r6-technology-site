@@ -1,0 +1,44 @@
+diff --git a/templates/cloudfront-site.yaml b/templates/cloudfront-site.yaml
+index 3ea3c9a..2156122 100644
+--- a/templates/cloudfront-site.yaml
++++ b/templates/cloudfront-site.yaml
+@@ -47,11 +47,36 @@ Resources:
+             Condition:
+               StringEquals:
+                 'AWS:SourceArn': !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
+ 
++  CloudFrontFunction:
++    Type: AWS::CloudFront::Function
++    Properties:
++      Name: !Sub "${AWS::StackName}-URLRewriter"
++      FunctionConfig:
++        Comment: "Rewrite URLs to append /index.html"
++        Runtime: "cloudfront-js-1.0"
++      AutoPublish: true
++      FunctionCode: |
++        function handler(event) {
++          var request = event.request;
++          var uri = request.uri;
++    
++          // Check if the URI matches post pattern
++          if (uri.match(/^\/posts\/[^\/]+\/?$/)) {
++            // Remove trailing slash if present, then append index.html
++            request.uri = uri.replace(/\/$/, '') + '/index.html';
++          }
++    
++          return request;
++        }
++
+   CloudFrontDistribution:
+     Type: AWS::CloudFront::Distribution
+     Properties:
+@@ -67,6 +92,9 @@ Resources:
+           MaxTTL: 31536000
+           TargetOriginId: !Sub 'S3-${AWS::StackName}-root'
+           ViewerProtocolPolicy: 'redirect-to-https'
++          FunctionAssociations:
++            - EventType: viewer-request
++              FunctionARN: !GetAtt CloudFrontFunction.FunctionARN
+           ResponseHeadersPolicyId: !Ref ResponseHeadersPolicy
+         CustomErrorResponses:
+           - ErrorCachingMinTTL: 60

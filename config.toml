@@ -2,9 +2,6 @@
 base_url = "https://r6.technology/"
 theme = "hacker"
 
-# Permalinks for Cloudfront static site hosting
-permalinks = { posts = "/posts/:slug/index.html" }
-
 # The title of the site
 title = "r6.technology"
 
