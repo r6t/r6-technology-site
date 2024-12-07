@@ -2,11 +2,14 @@
 base_url = "https://r6.technology/"
 theme = "hacker"
 
+# Permalinks for Cloudfront static site hosting
+permalinks = { posts = "/posts/:slug/index.html" }
+
 # The title of the site
 title = "r6.technology"
 
 # The description of the site
-description = "Thoughts from the cloud"
+description = "Hey check this out"
 
 author = "Ryan Cast"
 
@@ -41,7 +44,7 @@ title_separator = "|" # set as |, -, _, etc
 logo = "images/logo.png"
 
 # Google Analytics tracking ID
-google_analytics = "example-tracking-id"
+# google_analytics = "example-tracking-id"
 
 # Contact form script id that points to google macros (e.g. https://script.google.com/macros/s/<script-identifier>/exec)
 contact_form_script_id = "<script-identifier>"
@@ -50,14 +53,14 @@ contact_form_script_id = "<script-identifier>"
 monitor = false
 
 # Menu items
-menu = [{ url = "/about", name = "About" }, { url = "/tags", name = "Tags" }]
+menu = [{ url = "/tags", name = "Tags" }]
 
 language_code = "en-US"
 
 # Enable OpenGraph metadata
 opengraph = true
 
-timezone = "America/New_York"
+timezone = "UTC"
 # timeformat = ""
 
 # The path to cv file if you use cv shortcode
@@ -71,11 +74,11 @@ simplified_tags = false
 
 # Social links
 social_links = [
-  { platform = "email", user_id = "johndoe@example.com" },
-  { platform = "github", user_id = "johndoe" },
-  { platform = "linkedin", user_id = "johndoe" },
+  { platform = "email", user_id = "web@ryancast.com" },
+  { platform = "github", user_id = "r6t" },
+  # { platform = "linkedin", user_id = "johndoe" },
   { platform = "feed", user_id = true },
-  { platform = "keyoxide", user_id = "aspe:host:XXXXXXX" },
+  # { platform = "keyoxide", user_id = "aspe:host:XXXXXXX" },
   # { platform = "facebook", user_id = "" },
   # { platform = "instagram", user_id = "" },
   # { platform = "pinterest", user_id = "" },
@@ -87,15 +90,15 @@ social_links = [
 
 # GitHub settings that are used to generate the edit page link
 [extra.github]
-username = "en9inerd"
-repo = "zola-hacker"
+username = "r6t"
+repo = "r6-technology-site"
 
 # Giscus settings
 [extra.giscus]
 repo = "en9inerd/zola-hacker"
-repo_id = "R_kgDOMZOW5g"
+repo_id = "R_kgDONMlyug"
 category = "Comments"
-category_id = "DIC_kwDOMZOW5s4ChFNw"
+category_id = "DIC_kwDONMlyus4Ck_Vx"
 mapping = "og:title"
 strict = 0
 reactions_enabled = 1
@@ -106,19 +109,12 @@ lang = "en"
 loading = "lazy"
 crossorigin = "anonymous"
 
-# PGP key
-[extra.pgp_key]
-url = "https://keys.openpgp.org/vks/v1/by-fingerprint/0000000000000000000000000000000000000000"
-fingerprint = "0000 0000 0000 0000 0000 0000 0000 0000 0000 0000"
-
 # JSON-LD metadata
 [extra.bio]
 gender = "male"
-employer_name = "Unknown"
-employer_url = "https://unknown.com"
-job_title = "Software Engineer"
+employer_name = "Cloudcast"
+employer_url = "https://cloudcast.consulting"
+job_title = "Cloud Engineer"
 links = [
-  "https://github.com/johndoe",
-  "https://linkedin.com/in/johndoe",
-  "https://twitter.com/johndoe",
+  "https://github.com/r6t",
 ]
