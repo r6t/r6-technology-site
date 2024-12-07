@@ -1,0 +1,43 @@
+diff --git a/templates/cloudfront-site.yaml b/templates/cloudfront-site.yaml
+index 3ea3c9a..4c8407b 100644
+--- a/templates/cloudfront-site.yaml
++++ b/templates/cloudfront-site.yaml
+@@ -52,6 +52,28 @@ Resources:
+               StringEquals:
+                 'AWS:SourceArn': !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
+ 
++  CloudFrontFunction:
++    Type: AWS::CloudFront::Function
++    Properties:
++      Name: !Sub "${AWS::StackName}-URLRewriter"
++      FunctionConfig:
++        Comment: "Rewrite URLs to append /index.html"
++        Runtime: "cloudfront-js-1.0"
++      AutoPublish: true
++      FunctionCode: |
++        function handler(event) {
++          var request = event.request;
++          var uri = request.uri;
++
++          // Check if the URI matches Zola posts pattern, including optional trailing slash
++          if (uri.match(/^\/posts\/[^\/]+\/?$/)) {
++            // Remove trailing slash if present, then append index.html
++            request.uri = uri.replace(/\/$/, '') + '/index.html';
++          }
++
++          return request;
++        }
++
+   CloudFrontDistribution:
+     Type: AWS::CloudFront::Distribution
+     Properties:
+@@ -68,6 +90,9 @@ Resources:
+           TargetOriginId: !Sub 'S3-${AWS::StackName}-root'
+           ViewerProtocolPolicy: 'redirect-to-https'
+           ResponseHeadersPolicyId: !Ref ResponseHeadersPolicy
++          FunctionAssociations:
++            - EventType: viewer-request
++              FunctionARN: !GetAtt CloudFrontFunction.FunctionARN
+         CustomErrorResponses:
+           - ErrorCachingMinTTL: 60
+             ErrorCode: 404

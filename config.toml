@@ -55,7 +55,7 @@ menu = [{ url = "/tags", name = "Tags" }]
 language_code = "en-US"
 
 # Enable OpenGraph metadata
-opengraph = true
+opengraph = false
 
 timezone = "UTC"
 # timeformat = ""
@@ -88,7 +88,10 @@ social_links = [
 # GitHub settings that are used to generate the edit page link
 [extra.github]
 username = "r6t"
-repo = "r6-technology-site"
+repo = "r6t/r6-technology-site"
+github_repository = "r6t/r6-technology-site"
+github_branch = "main"
+branch = "main"
 
 # Giscus settings
 [extra.giscus]
@@ -113,5 +116,5 @@ employer_name = "Cloudcast"
 employer_url = "https://cloudcast.consulting"
 job_title = "Cloud Engineer"
 links = [
-  "https://github.com/r6t",
+  "https://ryancast.com",
 ]
