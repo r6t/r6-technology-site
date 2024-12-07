@@ -88,10 +88,8 @@ social_links = [
 # GitHub settings that are used to generate the edit page link
 [extra.github]
 username = "r6t"
-repo = "r6t/r6-technology-site"
-github_repository = "r6t/r6-technology-site"
-github_branch = "main"
-branch = "main"
+repo = "r6-technology-site"
+repo_full = "r6t/r6-technology-site"
 
 # Giscus settings
 [extra.giscus]
