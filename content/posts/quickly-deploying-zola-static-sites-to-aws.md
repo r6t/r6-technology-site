@@ -1,6 +1,6 @@
 +++
 title = "Deploying Zola static sites on AWS (CloudFront and S3)"
-date = 2024-12-08T23:00:00+00:00
+date = 2024-12-06T22:00:00+00:00
 
 [taxonomies]
 tags = ["Zola", "AWS"]

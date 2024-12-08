@@ -1,6 +1,6 @@
 +++
 title = "Home Networking in the 2020s with Headscale and Mullvad Exit Node"
-date = 2024-12-06T22:00:00+00:00
+date = 2024-12-08T23:45:00+00:00
 
 [taxonomies]
 tags = []
