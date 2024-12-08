@@ -89,20 +89,19 @@ social_links = [
 [extra.github]
 username = "r6t"
 repo = "r6-technology-site"
-repo_full = "r6t/r6-technology-site"
 
 # Giscus settings
 [extra.giscus]
-repo = "en9inerd/zola-hacker"
+repo = "r6t/r6-technology-site"
 repo_id = "R_kgDONMlyug"
 category = "Comments"
-category_id = "DIC_kwDONMlyus4Ck_Vx"
-mapping = "og:title"
+category_id = "DIC_kwDONMlyus4ClBd2"
+mapping = "pathname"
 strict = 0
 reactions_enabled = 1
 emit_metadata = 0
 input_position = "top"
-theme = "dark"
+theme = "preferred_color_scheme"
 lang = "en"
 loading = "lazy"
 crossorigin = "anonymous"
