@@ -25,7 +25,7 @@ git submodule add git@github.com:en9inerd/zola-hacker.git themes/hacker
 ```
 
 #### AWS
-What is that infrastructure part I just mentioned? While I was initially exploring Wordpress hosting, I kept going back to thinking that a basic S3 website would meet my needs without extra stuff. Zola (or other static site generators) make simple static sites more appealing as they can help with the presentation and graphical design side of things, creating a good looking baseline to put some static content on top of. Zola pages + S3 static hosting seem like a natural fit. Fortunately, AWS provides an example SAM template for static sites in S3 that are fronted by CloudFront (AWS' global CDN) and include domain and certificate resources, as well as the policies and permissions for making this all work. It works almost perfectly for this out of the box.
+What is that infrastructure part I just mentioned? While I was initially exploring Wordpress hosting, I kept going back to thinking that a basic S3 website would meet my needs without extra stuff. Zola (or other static site generators) make simple static sites more appealing as they can help with the presentation side of things, creating a good looking baseline to put some static content on top of. Zola pages + S3 static hosting seem like a natural fit. Fortunately, AWS provides an example SAM template for static sites in S3 that are fronted by CloudFront (AWS' global CDN) and include domain and certificate resources, as well as the policies and permissions for making this all work. It works almost perfectly for this out of the box.
 
 It's time for that second submodule!  It can be added like this:
 
