@@ -1,5 +1,5 @@
 diff --git a/templates/cloudfront-site.yaml b/templates/cloudfront-site.yaml
-index 3ea3c9a..4c8407b 100644
+index 3ea3c9a..4d6bb43 100644
 --- a/templates/cloudfront-site.yaml
 +++ b/templates/cloudfront-site.yaml
 @@ -52,6 +52,28 @@ Resources:
@@ -19,8 +19,8 @@ index 3ea3c9a..4c8407b 100644
 +          var request = event.request;
 +          var uri = request.uri;
 +
-+          // Check if the URI matches Zola posts pattern, including optional trailing slash
-+          if (uri.match(/^\/posts\/[^\/]+\/?$/)) {
++          // Check if the URI matches any directory path
++          if (uri.match(/^\/[^.]+\/?$/)) {
 +            // Remove trailing slash if present, then append index.html
 +            request.uri = uri.replace(/\/$/, '') + '/index.html';
 +          }
@@ -41,3 +41,12 @@ index 3ea3c9a..4c8407b 100644
          CustomErrorResponses:
            - ErrorCachingMinTTL: 60
              ErrorCode: 404
+@@ -151,7 +176,7 @@ Resources:
+             Override: true
+             Preload: true
+           ContentSecurityPolicy:
+-            ContentSecurityPolicy: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
++            ContentSecurityPolicy: "default-src 'self'; script-src 'self' https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; frame-src 'self' https://giscus.app; connect-src 'self' https://giscus.app"
+             Override: true
+           ContentTypeOptions:
+             Override: true
