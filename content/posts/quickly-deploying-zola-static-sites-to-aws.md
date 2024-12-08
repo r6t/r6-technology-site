@@ -38,9 +38,9 @@ git submodule add git@github.com:aws-samples/amazon-cloudfront-secure-static-sit
 The factor that makes the AWS sample template only almost perfect has to do with link handling. Zola's default structure links to pages by directory name, and creates pages as index.html documents under those directories. This introduces an issue for CloudFront hosted sites that use S3 origins. CloudFront sites allow specification of the default root object, allowing the setting of index.html or another file as your root object. This only applies at the top level though. Unlike standard S3 website hosting, CloudFront sites backed by standard S3 origins do not append /index.html or a specified default object outside of the top level root object. So when the zola-hacker theme links to `posts/blah/`, or the zallery theme links to `artwork/blah` (other themes will have similar patterns), those links go to CloudFront AccessDenied error pages because `/index.html` is omitted from the link path. One way to correct this is introducing CloudFront Functions that run on the viewer-request event and append /index.html when necessary. I've solved for this by adding a patch that will apply to the AWS submodule:
 
 ```
-# cloudfront-function.patch
+# cloudfront.patch
 diff --git a/templates/cloudfront-site.yaml b/templates/cloudfront-site.yaml
-index 3ea3c9a..4c8407b 100644
+index 3ea3c9a..4d6bb43 100644
 --- a/templates/cloudfront-site.yaml
 +++ b/templates/cloudfront-site.yaml
 @@ -52,6 +52,28 @@ Resources:
@@ -60,8 +60,8 @@ index 3ea3c9a..4c8407b 100644
 +          var request = event.request;
 +          var uri = request.uri;
 +
-+          // Check if the URI matches Zola posts pattern, including optional trailing slash
-+          if (uri.match(/^\/posts\/[^\/]+\/?$/)) {
++          // Check if the URI matches any directory path
++          if (uri.match(/^\/[^.]+\/?$/)) {
 +            // Remove trailing slash if present, then append index.html
 +            request.uri = uri.replace(/\/$/, '') + '/index.html';
 +          }
@@ -82,8 +82,19 @@ index 3ea3c9a..4c8407b 100644
          CustomErrorResponses:
            - ErrorCachingMinTTL: 60
              ErrorCode: 404
+@@ -151,7 +176,7 @@ Resources:
+             Override: true
+             Preload: true
+           ContentSecurityPolicy:
+-            ContentSecurityPolicy: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
++            ContentSecurityPolicy: "default-src 'self'; script-src 'self' https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; frame-src 'self' https://giscus.app; connect-src 'self' https://giscus.app"
+             Override: true
+           ContentTypeOptions:
+             Override: true
 ```
-By keeping a file like this in your project, you can copy it into the submodule directory and run `git apply cloudfront-function.patch` to modify the AWS sample template to include a CloudFront Function (that incurs [nominal or no cost](https://aws.amazon.com/cloudfront/pricing/) for low-traffic sites) which will handle Zola links. It is key to run this patch before running the AWS build/package/deploy steps, as those will modify the submodule. There are other ways to address this, and the CloudFront Function shown in this patch file can be applied other ways if you're not using the same submodule approach.
+This patch also overrides the Content Security Policy that gets associated with the CloudFront distribution; this is necessary for Zola sites to access internally hosted fonts. I also add rules for an integration with Giscus, which you'll probably want to omit unless you know you need it.
+
+By keeping a git patch in your project, you can copy it into the submodule directory and run `git apply cloudfront-function.patch` to modify the AWS sample template to include a CloudFront Function (that incurs [nominal or no cost](https://aws.amazon.com/cloudfront/pricing/) for low-traffic sites) which will handle Zola links. It is key to run this patch before running the AWS build/package/deploy steps, as those will modify the submodule. There are other ways to address adding the CloudFront Function shown in this patch file if you're not using the same submodule approach.
 
 #### Deploy
 Once your Zola project is in a good spot, clear out the AWS example site content from the SAM submodule and build your site in its' place.
