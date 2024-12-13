@@ -6,8 +6,8 @@ TL;DR:
 |--------------------------|----------------------------|---------------------------------------|
 | CloudFront Secure Static Site solution | amazon-cloudfront-secure-static-site | AWS IaC submodule                      |
 | Git patch                | cloudfront.patch          | Modifies the IaC submodule           |
-| Zola theme               | themes/<theme>            | site style/layout submodule           |
-| Zola project             | <everything else>         | Zola project content                 |
+| Zola theme               | themes/(theme)            | site style/layout submodule           |
+| Zola project             | (everything else)         | Zola project content                 |
 
 Basic deploy process:
  - Make changes to Zola content to modify the site
