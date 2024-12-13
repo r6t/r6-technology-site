@@ -3,7 +3,7 @@ title = "Home Networking in the 2020s with Headscale and Mullvad Exit Node"
 date = 2024-12-08T23:45:00+00:00
 
 [taxonomies]
-tags = []
+tags = [ "Headscale", "Homelab", "Networking", "Tailscale", "VPN" ]
 +++
 This post details my home network that utilizes a self-managed mesh VPN. I'll walk through motivations and iterations of this, highlight the ease-of-use and privacy benefits that this provides, and share enough detail to help with replicating something like this on your home network.
 

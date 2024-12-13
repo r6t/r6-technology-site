@@ -3,7 +3,7 @@ title = "Deploying Zola static sites on AWS (CloudFront and S3)"
 date = 2024-12-06T22:00:00+00:00
 
 [taxonomies]
-tags = ["Zola", "AWS"]
+tags = ["AWS", "Zola"]
 +++
 
 This post walks through a solution for deploying maintainable Zola static sites on AWS (CloudFront and S3).
