@@ -4,12 +4,13 @@ This project manages static website website content and cloud infrastructure for
 TL;DR:
 | Component               | Path                       | Note                                  |
 |--------------------------|----------------------------|---------------------------------------|
-| CloudFront Secure Static Site solution | amazon-cloudfront-secure-static-site | AWS IaC submodule                      |
+| [CloudFront Secure Static Site solution](https://github.com/aws-samples/amazon-cloudfront-secure-static-site) | amazon-cloudfront-secure-static-site | AWS IaC submodule                      |
 | Git patch                | cloudfront.patch          | Modifies the IaC submodule           |
-| Zola theme               | themes/(theme)            | site style/layout submodule           |
+| [Zola theme](https://www.getzola.org/themes/)               | themes/(theme)            | site style/layout submodule           |
 | Zola project             | (everything else)         | Zola project content                 |
 
 Basic deploy process:
+ - Apply git pach to AWS submodule
  - Make changes to Zola content to modify the site
  - `zola build` the site into the AWS submodule's `www/` directory
  - Run AWS SAM [steps](https://github.com/aws-samples/amazon-cloudfront-secure-static-site?tab=readme-ov-file#customizing-the-solution) to generate and deploy templates
