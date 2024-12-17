@@ -50,7 +50,7 @@ contact_form_script_id = "<script-identifier>"
 monitor = false
 
 # Menu items
-menu = [{ url = "/tags", name = "Tags" }]
+menu = [{ url = "/about", name = "About" }, { url = "/tags", name = "Tags" }]
 
 language_code = "en-US"
 
