@@ -1,8 +1,6 @@
-diff --git a/templates/cloudfront-site.yaml b/templates/cloudfront-site.yaml
-index 3ea3c9a..4d6bb43 100644
---- a/templates/cloudfront-site.yaml
-+++ b/templates/cloudfront-site.yaml
-@@ -52,6 +52,28 @@ Resources:
+--- templates/cloudfront-site.yaml	2026-01-30 09:19:03
++++ /tmp/templates-orig/cloudfront-site.yaml	2026-02-02 10:00:11
+@@ -52,6 +52,28 @@
                StringEquals:
                  'AWS:SourceArn': !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
  
@@ -31,7 +29,7 @@ index 3ea3c9a..4d6bb43 100644
    CloudFrontDistribution:
      Type: AWS::CloudFront::Distribution
      Properties:
-@@ -68,6 +90,9 @@ Resources:
+@@ -68,6 +90,9 @@
            TargetOriginId: !Sub 'S3-${AWS::StackName}-root'
            ViewerProtocolPolicy: 'redirect-to-https'
            ResponseHeadersPolicyId: !Ref ResponseHeadersPolicy
@@ -41,7 +39,16 @@ index 3ea3c9a..4d6bb43 100644
          CustomErrorResponses:
            - ErrorCachingMinTTL: 60
              ErrorCode: 404
-@@ -151,7 +176,7 @@ Resources:
+@@ -93,7 +118,7 @@
+         PriceClass: 'PriceClass_All'
+         ViewerCertificate:
+           AcmCertificateArn: !Ref 'CertificateArn'
+-          MinimumProtocolVersion: 'TLSv1.1_2016'
++          MinimumProtocolVersion: 'TLSv1.2_2021'
+           SslSupportMethod: 'sni-only'
+       Tags:
+         - Key: Solution
+@@ -151,7 +176,7 @@
              Override: true
              Preload: true
            ContentSecurityPolicy:
@@ -50,3 +57,29 @@ index 3ea3c9a..4d6bb43 100644
              Override: true
            ContentTypeOptions:
              Override: true
+--- templates/custom-resource.yaml	2026-01-30 09:19:03
++++ /tmp/templates-orig/custom-resource.yaml	2026-02-02 10:00:28
+@@ -19,6 +19,11 @@
+         ServerSideEncryptionConfiguration:
+           - ServerSideEncryptionByDefault:
+               SSEAlgorithm: AES256
++      PublicAccessBlockConfiguration:
++        BlockPublicAcls: true
++        BlockPublicPolicy: true
++        IgnorePublicAcls: true
++        RestrictPublicBuckets: true
+       Tags:
+         - Key: Solution
+           Value: ACFS3
+@@ -31,6 +36,11 @@
+         ServerSideEncryptionConfiguration:
+           - ServerSideEncryptionByDefault:
+               SSEAlgorithm: AES256
++      PublicAccessBlockConfiguration:
++        BlockPublicAcls: true
++        BlockPublicPolicy: true
++        IgnorePublicAcls: true
++        RestrictPublicBuckets: true
+       LoggingConfiguration:
+         DestinationBucketName: !Ref 'S3BucketLogs'
+         LogFilePrefix: 'origin/'
